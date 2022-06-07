@@ -1,8 +1,9 @@
 "use strict";
 
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const Product = require("./models/product");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -17,14 +18,30 @@ const PRODUCT_PRODUCT_ID = "/api/product/:productId";
 const CONEXION_MONDO_DB = "mongodb://localhost:27017/shop";
 
 app.get(PRODUCT, (req, res) => {
-  res.send(200, { products: [] });
+  res.status(200).send({ products: [] });
 });
 
 app.get(PRODUCT_PRODUCT_ID, (req, res) => { });
 
 app.post(PRODUCT, (req, res) => {
+  console.log(`POST ${PRODUCT}`);
   console.log(req.body);
-  res.status(200).send({ message: "El producto se ha recibido" });
+
+  let product = new Product();
+  product.name = req.body.name;
+  product.picture = req.body.picture;
+  product.price = req.body.price;
+  product.category = req.body.category;
+  product.description = req.body.description;
+
+  product.save((err, productStored) => {
+    if (err) {
+      res.status(500).send(`Error al salvar en la base de datos ${err}`)
+    }
+
+    res.status(200).send({ product: productStored });
+  });
+
 });
 
 app.put(PRODUCT_PRODUCT_ID, (req, res) => { });
