@@ -1,7 +1,10 @@
 "use strict"
 
+// IMPORTS
 const Product = require("../models/product-model");
 
+
+// FUNCTIONS
 function getProduct(req, res) {
   let productId = req.params.productId;
 
@@ -81,6 +84,8 @@ function deleteProduct(req, res) {
   });
 }
 
+
+// EXPORTS
 module.exports = {
   getProduct,
   getProducts,

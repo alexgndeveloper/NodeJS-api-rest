@@ -1,10 +1,13 @@
 "use strict"
 
+// IMPORTS
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt-nodejs");
 const crypto = require("crypto");
 
+
+// SCHEMAS
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   displayName: String,
@@ -14,6 +17,8 @@ const UserSchema = new Schema({
   lastLogin: Date
 });
 
+
+// FUNCTIONS
 UserSchema.pre('save', function (next) {
   let user = this;
   if (!user.isModified('password')) {
@@ -37,6 +42,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.methods.gravatar = function () {
+  // TODO Revisar porque no funciona (Insertar el avatar en la picture)
   if (!this.email) {
     return `https://gravatar.com/avatar/?s=200&d=retro`;
   }
@@ -45,4 +51,6 @@ UserSchema.methods.gravatar = function () {
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`;
 }
 
+
+// EXPORTS
 module.exports = mongoose.model("User", UserSchema);

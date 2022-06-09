@@ -1,8 +1,11 @@
 "use strict"
 
+// IMPORTS
 const User = require("../models/user-model");
 const service = require("../services/services");
 
+
+// FUNCTIONS
 function signUp(req, res) {
   const user = new User({
     email: req.body.email,
@@ -19,6 +22,7 @@ function signUp(req, res) {
 }
 
 function signIn(req, res) {
+  // TODO Revisar el metodo me he logueado correctamente sin existir el usuario
   User.find({ email: req.body.email }, (err, user) => {
     if (err) {
       return res.status(500).send({ message: err });
@@ -36,6 +40,8 @@ function signIn(req, res) {
   });
 }
 
+
+// EXPORTS
 module.exports = {
   signUp,
   signIn

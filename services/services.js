@@ -1,9 +1,12 @@
 "use strict"
 
+// IMPORTS
 const jwt = require("jwt-simple");
 const moment = require("moment");
 const config = require("../config");
 
+
+// FUNCTIONS
 function createToken(user) {
   const payload = {
     sub: user._id,
@@ -39,6 +42,8 @@ function decodeToken(token) {
   return decoded;
 }
 
+
+// EXPORTS
 module.exports = {
   createToken,
   decodeToken

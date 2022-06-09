@@ -1,7 +1,10 @@
 "use strict"
 
+// IMPORTS
 const services = require("../services/services");
 
+
+// FUNCTIONS
 function isAuth(req, res, next) {
 
   if (!req.headers.authorization) {
@@ -20,4 +23,6 @@ function isAuth(req, res, next) {
     });
 }
 
+
+// EXPORTS
 module.exports = isAuth;
