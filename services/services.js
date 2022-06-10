@@ -7,6 +7,7 @@ const config = require("../config");
 
 
 // FUNCTIONS
+// TODO Revisar que las fechas son correctas
 function createToken(user) {
   const payload = {
     sub: user._id,
